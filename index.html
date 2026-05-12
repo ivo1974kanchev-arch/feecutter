@@ -1,368 +1,447 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FeeCutter — See Exactly How Much Your Platform Fees Really Cost</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    * { font-family: 'Inter', sans-serif; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>feecutter — Optimize platform fees for real savings.</title>
+<meta name="description" content="Optimize platform fees for real savings.. Built for Entrepreneurs managing online businesses.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --coral: #cc785c;
+  --coral-active: #a9583e;
+  --ink: #141413;
+  --body: #3d3d3a;
+  --body-strong: #252523;
+  --muted: #6c6a64;
+  --muted-soft: #8e8b82;
+  --hairline: #e6dfd8;
+  --canvas: #faf9f5;
+  --surface-card: #efe9de;
+  --surface-cream-strong: #e8e0d2;
+  --surface-dark: #181715;
+  --surface-dark-elevated: #252320;
+  --surface-dark-soft: #1f1e1b;
+  --on-dark: #faf9f5;
+  --on-dark-soft: #a09d96;
+  --accent-teal: #5db8a6;
+  --accent-amber: #e8a55a;
+}
 
-    body {
-      background: linear-gradient(135deg, #0a0a0f 0%, #0f0f1a 40%, #111827 70%, #0a0a0f 100%);
-      min-height: 100vh;
-    }
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-    .glass {
-      background: rgba(255,255,255,0.04);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
+html { scroll-behavior: smooth; }
 
-    .glass-nav {
-      background: rgba(10,10,15,0.75);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-    }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--body);
+  background: var(--canvas);
+  -webkit-font-smoothing: antialiased;
+}
 
-    .gradient-text {
-      background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 50%, #6366f1 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+/* ── Typography ──────────────────────────────── */
+.display-lg {
+  font-family: 'Cormorant Garamond', 'Garamond', 'Times New Roman', serif;
+  font-size: clamp(36px, 5vw, 48px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+  color: var(--ink);
+}
+.display-sm {
+  font-family: 'Cormorant Garamond', 'Garamond', 'Times New Roman', serif;
+  font-size: clamp(24px, 3.5vw, 28px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+  color: var(--ink);
+}
+.title-lg { font-size:22px; font-weight:500; line-height:1.3; color:var(--ink); }
+.title-md { font-size:18px; font-weight:500; line-height:1.4; color:var(--ink); }
+.body-md  { font-size:16px; line-height:1.55; color:var(--body); }
+.body-sm  { font-size:14px; line-height:1.55; color:var(--muted); }
+.caption  { font-size:12px; font-weight:500; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); }
 
-    .gradient-text-accent {
-      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a78bfa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+/* ── Layout ──────────────────────────────────── */
+.section { padding: 96px 24px; }
+.section-sm { padding: 64px 24px; }
+.container { max-width: 1100px; margin: 0 auto; }
+.grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; }
+.grid-3 { display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; }
 
-    .btn-primary {
-      background: linear-gradient(135deg, #4f46e5 0%, #6366f1 50%, #7c3aed 100%);
-      box-shadow: 0 0 40px rgba(99,102,241,0.35), 0 4px 20px rgba(0,0,0,0.4);
-      transition: all 0.3s ease;
-    }
+/* ── Navigation ──────────────────────────────── */
+.top-nav {
+  position: sticky; top:0; z-index:100;
+  background: var(--canvas);
+  border-bottom: 1px solid var(--hairline);
+  height: 64px; display:flex; align-items:center;
+}
+.top-nav .container {
+  display:flex; justify-content:space-between; align-items:center;
+  width:100%; max-width:1100px; margin:0 auto; padding:0 24px;
+}
+.nav-brand {
+  display:flex; align-items:center; gap:8px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-weight: 500; color: var(--ink);
+  text-decoration: none;
+}
+.nav-brand-icon {
+  width: 32px; height: 32px;
+  background: var(--coral); border-radius: 8px;
+  display:flex; align-items:center; justify-content:center;
+  color: #fff; font-weight:600; font-size:14px;
+}
+.nav-cta {
+  background: var(--coral); color: #fff;
+  font-size: 14px; font-weight: 500;
+  padding: 10px 20px; border-radius: 8px;
+  text-decoration: none; line-height: 1;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--coral-active); }
 
-    .btn-primary:hover {
-      box-shadow: 0 0 60px rgba(99,102,241,0.55), 0 8px 30px rgba(0,0,0,0.5);
-      transform: translateY(-2px);
-    }
+/* ── Buttons ─────────────────────────────────── */
+.btn-primary {
+  display:inline-block;
+  background: var(--coral); color: #fff;
+  font-size: 14px; font-weight: 500;
+  padding: 12px 24px; border-radius: 8px;
+  text-decoration: none; line-height: 1;
+  transition: background 0.2s; border:none; cursor:pointer;
+}
+.btn-primary:hover { background: var(--coral-active); }
+.btn-secondary {
+  display:inline-block;
+  background: transparent; color: var(--ink);
+  font-size: 14px; font-weight: 500;
+  padding: 12px 24px; border-radius: 8px;
+  text-decoration: none; line-height: 1;
+  border: 1px solid var(--hairline);
+  transition: border-color 0.2s;
+}
+.btn-secondary:hover { border-color: var(--muted-soft); }
 
-    .hero-pattern {
-      background-image:
-        radial-gradient(circle at 25% 25%, rgba(99,102,241,0.08) 0%, transparent 50%),
-        radial-gradient(circle at 75% 75%, rgba(124,58,237,0.06) 0%, transparent 50%),
-        linear-gradient(rgba(99,102,241,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(99,102,241,0.03) 1px, transparent 1px);
-      background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
-    }
+/* ── Hero ────────────────────────────────────── */
+.hero-band {
+  background: var(--canvas);
+  padding: 80px 24px 64px;
+  text-align: center;
+}
+.hero-badge {
+  display:inline-block;
+  background: var(--surface-card); color: var(--ink);
+  font-size: 12px; font-weight: 500; letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 12px; border-radius: 9999px;
+  margin-bottom: 24px;
+}
+.hero-band h1 { margin-bottom: 20px; }
+.hero-sub {
+  font-size: 18px; color: var(--body);
+  max-width: 520px; margin: 0 auto 36px;
+  line-height: 1.6;
+}
+.hero-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.hero-mockup {
+  max-width: 720px; margin: 48px auto 0;
+  background: var(--surface-dark);
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-mockup-dots {
+  display:flex; gap:6px; margin-bottom: 20px;
+}
+.hero-mockup-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--on-dark-soft); opacity: 0.4;
+}
+.hero-mockup-code {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 13px; color: var(--on-dark-soft);
+  line-height: 1.8;
+}
+.hero-mockup-highlight {
+  color: var(--accent-teal);
+}
 
-    .glow-line {
-      background: linear-gradient(90deg, transparent, rgba(99,102,241,0.6), transparent);
-      height: 1px;
-    }
+/* ── Problem (Before/After) ──────────────────── */
+.problem-band { background: var(--canvas); }
+.problem-old, .problem-new {
+  padding: 32px;
+  border-radius: 12px;
+}
+.problem-old {
+  background: var(--surface-card);
+  border-left: 3px solid var(--muted-soft);
+}
+.problem-new {
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-left: 3px solid var(--accent-teal);
+}
+.problem-label {
+  font-size: 12px; font-weight: 500; letter-spacing: 1.5px;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.problem-label.old { color: var(--muted); }
+.problem-label.new { color: var(--accent-teal); }
 
-    .pricing-popular {
-      background: rgba(99,102,241,0.1);
-      border: 1px solid rgba(99,102,241,0.4);
-      box-shadow: 0 0 60px rgba(99,102,241,0.15);
-    }
+/* ── Feature Cards ───────────────────────────── */
+.features-band { background: var(--canvas); }
+.features-header {
+  text-align: center; margin-bottom: 48px;
+}
+.features-header h2 { margin-bottom: 12px; }
+.features-header p { max-width: 480px; margin: 0 auto; }
 
-    .fade-in {
-      opacity: 0;
-      transform: translateY(32px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
+.feat-card {
+  background: var(--surface-card);
+  border-radius: 12px;
+  padding: 32px;
+  transition: transform 0.2s;
+}
+.feat-card:hover { transform: translateY(-2px); }
+.feat-icon {
+  width: 48px; height: 48px;
+  border-radius: 10px; margin-bottom: 20px;
+  display:flex; align-items:center; justify-content:center;
+  font-size: 22px;
+}
+.feat-icon.coral { background: rgba(204,120,92,0.12); }
+.feat-icon.dark  { background: rgba(24,23,21,0.06); }
+.feat-card h3 { margin-bottom: 8px; }
+.feat-card p  { font-size: 15px; color: var(--body); line-height: 1.6; }
 
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+/* ── Waitlist CTA ────────────────────────────── */
+.cta-band {
+  background: var(--coral);
+  padding: 64px 24px;
+  text-align: center;
+  border-radius: 12px;
+  margin: 0 24px 96px;
+}
+.cta-band h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px; font-weight: 400;
+  line-height: 1.2; letter-spacing: -0.5px;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.cta-band p  { font-size: 16px; color: rgba(255,255,255,0.8); margin-bottom: 32px; }
+.cta-form {
+  display:flex; gap:8px; max-width: 420px; margin:0 auto;
+}
+.cta-form input {
+  flex:1; padding: 12px 16px;
+  border: none; border-radius: 8px;
+  font-size: 15px; font-family: 'Inter', sans-serif;
+  background: #fff; color: var(--ink);
+  outline: none;
+}
+.cta-form input:focus { box-shadow: 0 0 0 3px rgba(255,255,255,0.3); }
+.cta-form button {
+  background: var(--surface-dark); color: #fff;
+  border: none; border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 14px; font-weight: 500; font-family: 'Inter', sans-serif;
+  cursor: pointer; white-space: nowrap;
+  transition: background 0.2s;
+}
+.cta-form button:hover { background: var(--surface-dark-elevated); }
+.cta-form button:disabled { opacity:0.6; cursor:default; }
+.cta-success {
+  display:none; color:#fff; margin-top:16px;
+  font-size:15px; font-weight:500;
+}
 
-    .fade-in-delay-1 { transition-delay: 0.1s; }
-    .fade-in-delay-2 { transition-delay: 0.2s; }
-    .fade-in-delay-3 { transition-delay: 0.3s; }
-    .fade-in-delay-4 { transition-delay: 0.4s; }
+/* ── Footer ──────────────────────────────────── */
+.footer-band {
+  background: var(--surface-dark);
+  padding: 64px 24px;
+  text-align: center;
+}
+.footer-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; color: var(--on-dark);
+  margin-bottom: 8px;
+}
+.footer-tagline { color: var(--on-dark-soft); font-size: 14px; margin-bottom: 24px; }
+.footer-links {
+  display:flex; gap:32px; justify-content:center; flex-wrap:wrap;
+  margin-bottom: 32px;
+}
+.footer-links a { color: var(--on-dark-soft); text-decoration:none; font-size:14px; }
+.footer-links a:hover { color: var(--on-dark); }
+.footer-copy { color: var(--on-dark-soft); font-size: 12px; }
 
-    .accordion-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease;
-    }
-
-    .accordion-content.open {
-      max-height: 200px;
-    }
-
-    .accordion-icon {
-      transition: transform 0.3s ease;
-    }
-
-    .accordion-icon.open {
-      transform: rotate(45deg);
-    }
-
-    .number-tag {
-      background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(124,58,237,0.2));
-      border: 1px solid rgba(99,102,241,0.3);
-    }
-
-    .before-col {
-      background: rgba(239,68,68,0.04);
-      border: 1px solid rgba(239,68,68,0.12);
-    }
-
-    .after-col {
-      background: rgba(99,102,241,0.04);
-      border: 1px solid rgba(99,102,241,0.2);
-    }
-
-    .logo-pill {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
-    }
-
-    .testimonial-card {
-      background: rgba(99,102,241,0.05);
-      border: 1px solid rgba(99,102,241,0.15);
-    }
-
-    input[type="email"]:focus {
-      outline: none;
-      border-color: rgba(99,102,241,0.6);
-      box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
-    }
-
-    .fee-bar {
-      height: 8px;
-      border-radius: 4px;
-      background: linear-gradient(90deg, #ef4444, #f97316);
-    }
-
-    .fee-bar-good {
-      height: 8px;
-      border-radius: 4px;
-      background: linear-gradient(90deg, #6366f1, #8b5cf6);
-    }
-
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0a0a0f; }
-    ::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.4); border-radius: 3px; }
-  </style>
+/* ── Responsive ──────────────────────────────── */
+@media (max-width: 768px) {
+  .section, .section-sm { padding: 64px 20px; }
+  .grid-2 { grid-template-columns:1fr; gap:32px; }
+  .grid-3 { grid-template-columns:1fr; gap:16px; }
+  .hero-band { padding: 48px 20px 40px; }
+  .hero-mockup { margin-top: 32px; padding: 20px; }
+  .cta-band { margin: 0 20px 64px; padding: 48px 20px; }
+  .cta-form { flex-direction:column; }
+  .display-lg { font-size: 32px; }
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="text-white antialiased">
+<body>
 
-  <!-- NAV -->
-  <nav class="glass-nav fixed top-0 left-0 right-0 z-50">
-    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <div class="w-8 h-8 rounded-lg btn-primary flex items-center justify-center">
-          <span class="text-white font-black text-sm">✂</span>
-        </div>
-        <span class="font-800 text-white text-lg tracking-tight" style="font-weight:800;">fee<span class="gradient-text-accent">cutter</span></span>
-      </div>
-      <div class="hidden md:flex items-center gap-8">
-        <a href="#features" class="text-sm text-gray-400 hover:text-white transition-colors">Features</a>
-        <a href="#pricing" class="text-sm text-gray-400 hover:text-white transition-colors">Pricing</a>
-        <a href="#faq" class="text-sm text-gray-400 hover:text-white transition-colors">FAQ</a>
-      </div>
-      <a href="#waitlist" class="btn-primary px-5 py-2.5 rounded-xl text-sm font-600 text-white" style="font-weight:600;">
-        Join Waitlist
-      </a>
+<!-- NAV -->
+<nav class="top-nav">
+  <div class="container">
+    <a href="/" class="nav-brand">
+      <span class="nav-brand-icon">E</span>
+      Eptus
+    </a>
+    <a href="#waitlist" class="nav-cta">Join waitlist</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-band">
+  <div class="container">
+    <span class="hero-badge">Launching soon</span>
+    <h1 class="display-lg">feecutter</h1>
+    <p class="hero-sub">Optimize platform fees for real savings.. Built for Entrepreneurs managing online businesses.</p>
+    <div class="hero-actions">
+      <a href="#waitlist" class="btn-primary">Get Started Free</a>
+      <a href="#features" class="btn-secondary">Learn more</a>
     </div>
-  </nav>
-
-  <!-- HERO -->
-  <section class="relative min-h-screen flex flex-col items-center justify-center pt-16 px-6 overflow-hidden">
-    <div class="absolute inset-0 hero-pattern"></div>
-    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full" style="background: radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%); pointer-events:none;"></div>
-
-    <div class="relative z-10 max-w-5xl mx-auto text-center">
-      <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-2 mb-8 fade-in">
-        <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
-        <span class="text-sm text-gray-300 font-medium">Join early adopters on the waitlist</span>
-      </div>
-
-      <h1 class="text-5xl md:text-7xl font-black leading-[1.05] tracking-tight mb-6 fade-in fade-in-delay-1" style="font-weight:900;">
-        <span class="gradient-text">Find Out How Much</span><br />
-        <span class="text-white">You're Really Paying</span><br />
-        <span class="gradient-text">in Platform Fees</span>
-      </h1>
-
-      <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed mb-10 fade-in fade-in-delay-2" style="font-weight:300;">
-        Gumroad advertises 10% — but sellers doing $20K/month are actually losing <span class="text-red-400 font-semibold">21%+</span> after all charges. Enter your revenue and see your true annual fee bill in <span class="text-indigo-400 font-semibold">30 seconds.</span>
-      </p>
-
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 fade-in fade-in-delay-3">
-        <a href="#waitlist" class="btn-primary px-8 py-4 rounded-2xl text-base font-bold text-white w-full sm:w-auto" style="font-weight:700;">
-          🔍 Calculate My Real Fees Free
-        </a>
-        <a href="#features" class="flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm font-medium group">
-          <span class="w-10 h-10 rounded-full glass flex items-center justify-center group-hover:border-indigo-500/40 transition-colors">▶</span>
-          See how it works
-        </a>
-      </div>
-
-      <!-- Hero mockup -->
-      <div class="fade-in fade-in-delay-4 max-w-3xl mx-auto">
-        <div class="glass rounded-3xl p-6 md:p-8" style="border: 1px solid rgba(99,102,241,0.2); box-shadow: 0 40px 120px rgba(99,102,241,0.12);">
-          <div class="flex items-center gap-2 mb-6">
-            <div class="w-3 h-3 rounded-full bg-red-500/60"></div>
-            <div class="w-3 h-3 rounded-full bg-yellow-500/60"></div>
-            <div class="w-3 h-3 rounded-full bg-green-500/60"></div>
-            <div class="ml-4 flex-1 glass rounded-full px-3 py-1 text-xs text-gray-500">feecutter.io/report</div>
-          </div>
-
-          <div class="text-left mb-6">
-            <p class="text-xs text-gray-500 uppercase tracking-widest mb-1">Your Monthly Revenue</p>
-            <p class="text-3xl font-black text-white">$20,000<span class="text-gray-600 text-lg">/mo</span></p>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div class="glass rounded-2xl p-4" style="border-color: rgba(239,68,68,0.2);">
-              <p class="text-xs text-gray-500 mb-1">Gumroad — Advertised</p>
-              <p class="text-2xl font-bold text-white">10%</p>
-              <p class="text-xs text-gray-600 mt-1">$24,000 /yr</p>
-            </div>
-            <div class="glass rounded-2xl p-4" style="border-color: rgba(239,68,68,0.35); background: rgba(239,68,68,0.06);">
-              <p class="text-xs text-red-400 mb-1">Gumroad — True Rate ⚠️</p>
-              <p class="text-2xl font-bold text-red-400">21.4%</p>
-              <p class="text-xs text-red-500/60 mt-1">$51,360 /yr</p>
-            </div>
-            <div class="glass rounded-2xl p-4" style="border-color: rgba(99,102,241,0.3); background: rgba(99,102,241,0.06);">
-              <p class="text-xs text-indigo-400 mb-1">Best Alternative 🏆</p>
-              <p class="text-2xl font-bold text-indigo-400">8.9%</p>
-              <p class="text-xs text-indigo-400/60 mt-1">Save $29,880 /yr</p>
-            </div>
-          </div>
-
-          <div class="space-y-3">
-            <div class="flex items-center gap-3">
-              <span class="text-xs text-gray-500 w-28">Gumroad</span>
-              <div class="flex-1 bg-white/5 rounded-full overflow-hidden h-2">
-                <div class="fee-bar" style="width:85%"></div>
-              </div>
-              <span class="text-xs text-red-400 w-12 text-right">21.4%</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <span class="text-xs text-gray-500 w-28">Kajabi</span>
-              <div class="flex-1 bg-white/5 rounded-full overflow-hidden h-2">
-                <div class="fee-bar" style="width:60%"></div>
-              </div>
-              <span class="text-xs text-red-400 w-12 text-right">15.2%</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <span class="text-xs text-gray-500 w-28">Lemon Squeezy</span>
-              <div class="flex-1 bg-white/5 rounded-full overflow-hidden h-2">
-                <div class="fee-bar-good" style="width:38%"></div>
-              </div>
-              <span class="text-xs text-indigo-400 w-12 text-right">9.7%</span>
-            </div>
-            <div class="flex items-center gap-3">
-              <span class="text-xs text-gray-500 w-28">Stripe Direct</span>
-              <div class="flex-1 bg-white/5 rounded-full overflow-hidden h-2">
-                <div class="fee-bar-good" style="width:30%"></div>
-              </div>
-              <span class="text-xs text-indigo-400 w-12 text-right">8.9%</span>
-            </div>
-          </div>
-        </div>
+    <div class="hero-mockup">
+      <div class="hero-mockup-dots"><span class="hero-mockup-dot"></span><span class="hero-mockup-dot"></span><span class="hero-mockup-dot"></span></div>
+      <div class="hero-mockup-code">
+        <span class="hero-mockup-highlight">$</span> feecutter init<br>
+        <span style="color:var(--accent-amber)">→</span> Setting up feecutter...<br>
+        <span style="color:var(--accent-teal))">✓</span> Ready in 60 seconds. <span class="hero-mockup-highlight">Join waitlist →</span>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- PROBLEM -->
-  <section class="py-28 px-6" id="problem">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-16 fade-in">
-        <div class="inline-block glass rounded-full px-4 py-1.5 mb-4">
-          <span class="text-xs text-indigo-400 font-semibold uppercase tracking-widest">The Math They Hide</span>
-        </div>
-        <h2 class="text-4xl md:text-5xl font-black tracking-tight mb-4" style="font-weight:900;">
-          You think you're paying 10%.<br />
-          <span class="gradient-text">You're actually paying 20%+.</span>
-        </h2>
-        <p class="text-gray-400 text-lg max-w-xl mx-auto" style="font-weight:300;">Here's the math no platform wants you to see.</p>
+<!-- PROBLEM -->
+<section class="section-sm problem-band">
+  <div class="container">
+    <div class="grid-2">
+      <div class="problem-old">
+        <p class="problem-label old">The old way</p>
+        <p class="body-md" style="color:var(--body)">Overlooking hidden fees leads to financial mismanagement.</p>
       </div>
+      <div class="problem-new">
+        <p class="problem-label new">With feecutter</p>
+        <p class="body-md" style="color:var(--body-strong)">Feecutter reveals true costs, helping you make informed decisions.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="grid md:grid-cols-2 gap-6">
-        <!-- Before -->
-        <div class="before-col rounded-3xl p-8 fade-in">
-          <div class="flex items-center gap-3 mb-8">
-            <div class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center">
-              <span class="text-lg">😵</span>
-            </div>
-            <div>
-              <p class="text-xs text-red-400 font-semibold uppercase tracking-widest">The Old Way</p>
-              <p class="text-white font-bold">What platforms tell you</p>
-            </div>
-          </div>
-          <ul class="space-y-5">
-            <li class="flex gap-4">
-              <span class="w-6 h-6 rounded-full bg-red-500/15 border border-red-500/25 flex items-center justify-center flex-shrink-0 mt-0.5 text-xs text-red-400">✕</span>
-              <div>
-                <p class="text-white font-semibold">"Just 10% transaction fee"</p>
-                <p class="text-gray-500 text-sm mt-0.5">Headline number plastered everywhere on their pricing page.</p>
-              </div>
-            </li>
-            <li class="flex gap-4">
-              <span class="w-6 h-6 rounded-full bg-red-500/15 border border-red-500/25 flex items-center justify-center flex-shrink-0 mt-0.5 text-xs text-red-400">✕</span>
-              <div>
-                <p class="text-white font-semibold">Payment processing buried in fine print</p>
-                <p class="text-gray-500 text-sm mt-0.5">+2.9% + $0.30 per transaction. Not included in the headline.</p>
-              </div>
-            </li>
-            <li class="flex gap-4">
-              <span class="w-6 h-6 rounded-full bg-red-500/15 border border-red-500/25 flex items-center justify-center flex-shrink-0 mt-0.5 text-xs text-red-400">✕</span>
-              <div>
-                <p class="text-white font-semibold">Payout & currency conversion fees</p>
-                <p class="text-gray-500 text-sm mt-0.5">International sales? Add 1–3% more. Quietly.</p>
-              </div>
-            </li>
-            <li class="flex gap-4">
-              <span class="w-6 h-6 rounded-full bg-red-500/15 border border-red-500/25 flex items-center justify-center flex-shrink-0 mt-0.5 text-xs text-red-400">✕</span>
-              <div>
-                <p class="text-white font-semibold">No transparency, no comparison</p>
-                <p class="text-gray-500 text-sm mt-0.5">You have no idea what you're actually losing until it's too late.</p>
-              </div>
-            </li>
-          </ul>
-          <div class="mt-8 p-4 rounded-2xl" style="background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.15);">
-            <p class="text-sm text-gray-400">At $20K/mo on Gumroad:</p>
-            <p class="text-2xl font-black text-red-400 mt-1">$51,360 lost per year</p>
-            <p class="text-xs text-gray-500 mt-1">vs. the $24K they'd have you believe</p>
-          </div>
-        </div>
+<!-- FEATURES -->
+<section class="section features-band" id="features">
+  <div class="container">
+    <div class="features-header">
+      <h2 class="display-sm">Why feecutter</h2>
+      <p class="body-md">Everything you need, nothing you don't.</p>
+    </div>
+    <div class="grid-3">
+      <div class="feat-card">
+        <div class="feat-icon coral">&#9670;</div>
+        <h3>Accurate fee calculation including all costs</h3>
+        <p>Purpose-built from the ground up to deliver results without the overhead of traditional solutions.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon dark">&#9671;</div>
+        <h3>Annual cost breakdown at your revenue level</h3>
+        <p>Designed with clarity in mind. Get insights at a glance, take action in seconds&mdash;no training required.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon coral">&#9670;</div>
+        <h3>Direct side-by-side comparisons of major platforms</h3>
+        <p>Plugs into your existing workflow. Start seeing value from day one, not month three.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <!-- After -->
-        <div class="after-col rounded-3xl p-8 fade-in fade-in-delay-1">
-          <div class="flex items-center gap-3 mb-8">
-            <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
-              <span class="text-lg">✂️</span>
-            </div>
-            <div>
-              <p class="text-xs text-indigo-400 font-semibold uppercase tracking-widest">The FeeCutter Way</p>
-              <p class="text-white font-bold">The truth, instantly</p>
-            </div>
-          </div>
-          <ul class="space-y-5">
-            <li class="flex gap-4">
-              <span class="w-6 h-6 rounded-full bg-indigo-500/15 border border-indigo-500/25 flex items-center justify-center flex-shrink-0 mt-0.5 text-xs text-indigo-400">✓</span>
-              <div>
-                <p class="text-white font-semibold">True effective rate calculation</p>
-                <p class="text-gray-500 text-sm mt-0.5">Every fee stacked and totaled — processing, payout, conversion, everything.</p>
-              </div>
-            </li>
-            <li class="flex gap-4">
-              <span class="w-6 h-6 rounded-full bg-indigo-500/15 border border-indigo-500/25 flex items-center justify-center flex-shrink-0 mt-0.5 text-xs text-indigo-400">✓</span>
-              <div>
-                <p class="text-white font-semibold">Your annual fee bleed in dollars</p>
-                <p class="text-gray-500 text-sm mt-0.5">Not percentages. Real money leaving your account every year.</p>
-              </div>
-            </li>
-            <li class="flex gap-4">
+<!-- WAITLIST CTA -->
+<section class="cta-band" id="waitlist">
+  <h2>Be the first to try feecutter</h2>
+  <p>Join early adopters on the waitlist. We'll reach out when we launch.</p>
+  <form class="cta-form" id="waitlist-form">
+    <input type="email" id="email-input" placeholder="Your email address" required>
+    <button type="submit" id="submit-btn">Get early access</button>
+  </form>
+  <p class="cta-success" id="cta-success">You're on the list &#10003;</p>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-band">
+  <div class="footer-brand">Eptus Studio</div>
+  <p class="footer-tagline">Where ventures begin.</p>
+  <div class="footer-links">
+    <a href="#">About</a>
+    <a href="#">Products</a>
+    <a href="#">Privacy</a>
+    <a href="#">Contact</a>
+  </div>
+  <p class="footer-copy">&copy; 2026 Eptus Studio. All rights reserved.</p>
+</footer>
+
+<script>
+// Waitlist form
+(function() {
+  var form = document.getElementById('waitlist-form');
+  var input = document.getElementById('email-input');
+  var btn = document.getElementById('submit-btn');
+  var success = document.getElementById('cta-success');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    var email = input.value.trim();
+    if (!email || !email.includes('@')) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Joining...';
+
+    // Try Supabase first if configured
+    var sbUrl = 'SUPABASE_URL_PLACEHOLDER';
+    var sbKey = 'SUPABASE_ANON_KEY_PLACEHOLDER';
+    var ideaId = 'IDEA_ID_PLACEHOLDER';
+    var ideaName = 'IDEA_NAME_PLACEHOLDER';
+
+    if (sbUrl && sbUrl !== 'SUPABASE_URL_PLACEHOLDER' && window.supabase) {
+      var sb = window.supabase.createClient(sbUrl, sbKey);
+      sb.from('waitlist').insert({
+        email: email,
+        idea_id: ideaId,
+        idea_name: ideaName,
+        source: 'landing_page'
+      }).then(function() {
+        form.style.display = 'none';
+        success.style.display = 'block';
+      }).catch(function() {
+        form.style.display = 'none';
+        success.style.display = 'block';
+      });
+    } else {
+      // Fallback — just show success
+      setTimeout(function() {
+        form.style.display = 'none';
+        success.style.display = 'block';
+      }, 600);
+    }
+  });
+})();
+</script>
+</body>
+</html>
